@@ -17,10 +17,11 @@ socket.on('message', msg => {
    messages.appendChild(item);
    window.scrollTo(0, document.body.scrollHeight);
 });
-
-const changeNick = () => {
-   const nickname = prompt('choose nickname');
-   if (!nickname) return;
-   socket.emit('set_nick', nickname);
-};
-changeNick();
+socket.on('all_messages', msgArray => {
+   for (const msg of msgArray) {
+      const item = document.createElement('li');
+      item.textContent = msg.login + ': ' + msg.content;
+      messages.appendChild(item);
+   }
+   window.scrollTo(0, document.body.scrollHeight);
+});
