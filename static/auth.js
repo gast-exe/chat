@@ -23,3 +23,26 @@ registerForm?.addEventListener('submit', event => {
       }
    };
 });
+
+
+const loginForm = document.getElementById('login-form');
+
+loginForm?.addEventListener('submit', event => {
+   event.preventDefault();
+   const { login, password } = loginForm;
+
+   const user = JSON.stringify({
+      login: login.value,
+      password: password.value
+   });
+
+   const xhr = new XMLHttpRequest();
+   xhr.open('POST', 'api/login');
+   xhr.send(user);
+   xhr.onload = () => {
+      alert(xhr.response);
+      // if (xhr.response == 'Login is successful') {
+      //    window.open('/login', '_self');
+      // }
+   };
+});
