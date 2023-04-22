@@ -64,7 +64,8 @@ li {
    background: rgb(104, 104, 241);
 }
 
-.register-form {
+.register-form,
+.login-form {
    display: flex;
    justify-content: center;
    align-items: center;

@@ -37,12 +37,15 @@ loginForm?.addEventListener('submit', event => {
    });
 
    const xhr = new XMLHttpRequest();
-   xhr.open('POST', 'api/login');
+   xhr.open('POST', '/api/login');
    xhr.send(user);
    xhr.onload = () => {
-      alert(xhr.response);
-      // if (xhr.response == 'Login is successful') {
-      //    window.open('/login', '_self');
-      // }
+      const token = xhr.response;
+      if (xhr.status == 200) {
+         document.cookie = `token="${token};expires=${new Date(new Date().getTime() + 3600000)}"`;
+         window.location.assign('/');
+      } else {
+         return alert(token);
+      }
    };
 });

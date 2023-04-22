@@ -1,14 +1,22 @@
-const socket = io();
 const messages = document.getElementById('messages');
-const form = document.getElementById('form');
 const input = document.getElementById('input');
+const logout = document.getElementById('logout');
+const socket = io({
+   auth: {
+      cookie: document.cookie
+   }
+});
 
-form.addEventListener('submit', event => {
+document.getElementById('form').addEventListener('submit', event => {
    event.preventDefault();
    if (input.value) {
       socket.emit('new_message', input.value);
       input.value = '';
    }
+});
+logout.addEventListener('click', event => {
+   document.cookie = "token=;max-age=0";
+   location.reload();
 });
 
 socket.on('message', msg => {
